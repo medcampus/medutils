@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package medutils.protobuf;
 
-option go_package = "github.com/medcampus/protobuf/producttype";
+option go_package = "github.com/medcampus/medutils/producttype";
 
 enum ProductType {
     Unknown = 0;
