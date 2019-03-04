@@ -27,7 +27,7 @@ func Http_Logging() gin.HandlerFunc {
 			"ip":         c.ClientIP(),
 			"latency":    latency,
 			"user-agent": c.Request.UserAgent(),
-			"request-id": c.GetHeader("X-Request-Id"),
+			"request-id": c.Get("RequestId"),
 			"time":       end.Format(time.RFC3339),
 		})
 
