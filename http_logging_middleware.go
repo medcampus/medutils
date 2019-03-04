@@ -31,7 +31,7 @@ func Http_Logging() gin.HandlerFunc {
 			"time":       end.Format(time.RFC3339),
 		})
 
-		if len(c.Errors) > 0 {
+		if c.Writer.Status() >= 400 {
 			// Append error field if this is an erroneous request.
 			entry.Error(c.Errors.String())
 		} else {
