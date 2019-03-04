@@ -1,6 +1,7 @@
 package medutils
 
 import (
+	"context"
 	"fmt"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc/codes"
@@ -12,8 +13,8 @@ func ConvertToGrpcErr(code codes.Code, message string) error {
 	return status.Errorf(code, message)
 }
 
-func LogError(methodName string, err error) {
-	logrus.Errorf("method = %s, Error = %v", methodName, err)
+func GrpcLogError(context context.Context, err error) {
+	logrus.Errorf("method = %v, Error = %v", context.Value("method"), err)
 }
 
 func ValidObjectId(objectId ...string) (error, bool) {

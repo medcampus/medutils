@@ -28,12 +28,11 @@ func Http_Logging() gin.HandlerFunc {
 			"latency":    latency,
 			"user-agent": c.Request.UserAgent(),
 			"request-id": c.GetString("RequestId"),
-			"time":       end.Format(time.RFC3339),
+			//"time":       end.Format(time.RFC3339),
 		})
 
 		if c.Writer.Status() >= 400 {
-			// Append error field if this is an erroneous request.
-			entry.Error(c.Errors.String())
+			entry.Error()
 		} else {
 			entry.Info()
 		}
