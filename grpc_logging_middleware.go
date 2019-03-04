@@ -18,7 +18,7 @@ var (
 )
 
 // Logging interceptor.
-func Logging(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
+func GRPC_Logging(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
 	start := time.Now()
 	log.Infof("calling %s, req=%s", info.FullMethod, marshal(req))
 	resp, err = handler(ctx, req)
