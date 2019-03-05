@@ -8,7 +8,6 @@ import (
 	"github.com/spf13/viper"
 )
 
-
 func configureLogging(loghandler io.Writer, debugMode bool) {
 	var logLevel log.Level
 
