@@ -3,6 +3,7 @@ package medutils
 import (
 	"errors"
 	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
 type SuccessResponse struct {
@@ -19,6 +20,9 @@ type ErrorResponse struct {
 
 func ReturnSuccessResponse(ctx *gin.Context, response SuccessResponse) {
 	response.Status = true
+	if response.Code != 0 {
+		response.Code = http.StatusOK
+	}
 	ctx.JSON(response.Code, response)
 }
 
