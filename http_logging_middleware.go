@@ -20,16 +20,18 @@ func Http_Logging() gin.HandlerFunc {
 		end := time.Now().UTC()
 		latency := end.Sub(start)
 
-		logFields := logrus.Fields{
-			"status":     c.Writer.Status(),
-			"method":     c.Request.Method,
-			"path":       path,
-			"ip":         c.ClientIP(),
-			"latency":    latency,
-			"user-agent": c.Request.UserAgent(),
-			"request-id": c.GetString("RequestId"),
-			"handler": c.HandlerName(),
-			//"time":       end.Format(time.RFC3339),
+		logFields := make(logrus.Fields)
+
+		logFields["status"] = c.Writer.Status()
+		logFields["method"] = c.Request.Method
+		logFields["path"] = path
+		logFields["ip"] = c.ClientIP()
+		logFields["latency"] = latency
+		logFields["user-agent"] = c.Request.UserAgent()
+		logFields["request-id"] = c.GetString("RequestId")
+		logFields["handler"] = c.HandlerName()
+		if len(c.Errors) > 0 {
+			logFields["errors"] = c.Errors
 		}
 
 		entry := logrus.WithFields(logFields)
