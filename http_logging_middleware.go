@@ -20,7 +20,7 @@ func Http_Logging() gin.HandlerFunc {
 		end := time.Now().UTC()
 		latency := end.Sub(start)
 
-		entry := logrus.WithFields(logrus.Fields{
+		logFields := logrus.Fields{
 			"status":     c.Writer.Status(),
 			"method":     c.Request.Method,
 			"path":       path,
@@ -28,10 +28,14 @@ func Http_Logging() gin.HandlerFunc {
 			"latency":    latency,
 			"user-agent": c.Request.UserAgent(),
 			"request-id": c.GetString("RequestId"),
+			"handler": c.HandlerName(),
 			//"time":       end.Format(time.RFC3339),
-		})
+		}
+
+		entry := logrus.WithFields(logFields)
 
 		if c.Writer.Status() >= 400 {
+			logFields["error"] = c.Errors
 			entry.Error()
 		} else {
 			entry.Info()
