@@ -16,7 +16,7 @@ func waitForInterrupt() {
 	<-c
 }
 
-func Shutdown(s *grpc.Server, l net.Listener) {
+func shutdown(s *grpc.Server, l net.Listener) {
 	// wait for interupt signal
 	waitForInterrupt()
 

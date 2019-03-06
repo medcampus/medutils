@@ -16,7 +16,7 @@ func InitGrpc(port string, serviceImpl interface{}, serviceInfo *grpc.ServiceDes
 	}
 
 	opts = append(opts, grpc.UnaryInterceptor(GRPC_Logging), grpc.UnaryInterceptor(GRPC_Recovery))
-	
+
 	srv := grpc.NewServer(opts...)
 
 	srv.RegisterService(serviceInfo, serviceImpl)
@@ -29,4 +29,6 @@ func InitGrpc(port string, serviceImpl interface{}, serviceInfo *grpc.ServiceDes
 			log.Fatalf("failed to serve: %v", err)
 		}
 	}()
+
+	Shutdown(srv, listener)
 }
