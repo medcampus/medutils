@@ -7,28 +7,19 @@ import (
 	"net"
 )
 
-func InitGrpc(port string, serviceImpl interface{}, serviceInfo *grpc.ServiceDesc, opts ...grpc.ServerOption)  {
+func InitGrpc(port string, opts ...grpc.ServerOption) (*grpc.Server, net.Listener) {
 
 	listener, err := net.Listen("tcp", port)
 	if err != nil {
 		log.Errorf("Unable to create listener at port: %s, error: %v", port, err)
-		return
+		return nil, nil
 	}
 
 	opts = append(opts, grpc.UnaryInterceptor(GRPC_Logging), grpc.UnaryInterceptor(GRPC_Recovery))
 
 	srv := grpc.NewServer(opts...)
 
-	srv.RegisterService(serviceInfo, serviceImpl)
-
 	reflection.Register(srv)
 
-	go func() {
-		log.Infof("Starting FileService Server...\n Listening on port %v", port)
-		if err := srv.Serve(listener); err != nil {
-			log.Fatalf("failed to serve: %v", err)
-		}
-	}()
-
-	shutdown(srv, listener)
+	return srv, listener
 }
