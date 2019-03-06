@@ -23,7 +23,7 @@ type Handler struct {
 // create root DB Session
 func createDBSession() (session *mgo.Session, err error) {
 	mongoUrl := viper.GetString("mongo.host")
-	session, err = mgo.Dial(mongoUrl))
+	session, err = mgo.Dial(mongoUrl)
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, fmt.Sprintf("error creating root mongo session %s\n", err.Error()))
 	}
