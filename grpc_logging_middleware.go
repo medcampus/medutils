@@ -3,6 +3,7 @@ package medutils
 import (
 	"bytes"
 	"fmt"
+	"google.golang.org/grpc"
 	"reflect"
 	"time"
 
@@ -10,7 +11,6 @@ import (
 	"github.com/golang/protobuf/proto"
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/net/context"
-	"google.golang.org/grpc"
 )
 
 var (
@@ -18,7 +18,7 @@ var (
 )
 
 // Logging interceptor.
-func GRPC_Logging(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
+func grpc_logging(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
 	start := time.Now()
 	log.Infof("calling %s, req=%s", info.FullMethod, marshal(req))
 	resp, err = handler(ctx, req)

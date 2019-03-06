@@ -6,7 +6,7 @@ import (
 )
 
 // Unary interceptor chain
-func UnaryInterceptorChain(interceptors ...grpc.UnaryServerInterceptor) grpc.UnaryServerInterceptor {
+func unaryInterceptorChain(interceptors ...grpc.UnaryServerInterceptor) grpc.UnaryServerInterceptor {
 	return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
 		chain := handler
 		for i := len(interceptors) - 1; i >= 0; i-- {

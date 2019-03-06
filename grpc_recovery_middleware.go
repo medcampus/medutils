@@ -1,12 +1,12 @@
 package medutils
 
 import (
+	"google.golang.org/grpc"
 	"google.golang.org/grpc/status"
 	"runtime"
 
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/net/context"
-	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 )
 
@@ -15,7 +15,7 @@ const (
 )
 
 // Recovery interceptor to handle grpc panic.
-func GRPC_Recovery(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
+func grpc_recovery(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
 	// recovery func
 	defer func() {
 		if r := recover(); r != nil {
