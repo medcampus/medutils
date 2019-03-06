@@ -13,12 +13,7 @@ import (
 var (
 	session                *mgo.Session
 	once                   sync.Once
-	dbName, collectionName string
 )
-
-type Handler struct {
-	C *mgo.Collection
-}
 
 // create root DB Session
 func createDBSession() (session *mgo.Session, err error) {
@@ -30,14 +25,11 @@ func createDBSession() (session *mgo.Session, err error) {
 	}
 	log.Infof("Created ROOT Database Session from %s", mongoUrl)
 
-	dbName = viper.GetString("mongo.dbName")
-	collectionName = viper.GetString("mongo.collectionName")
-
 	return session, nil
 }
 
 // copy database session
-func GetMongoSession() *Handler {
+func GetMongoSession() *mgo.Session {
 
 	once.Do(func() {
 		var err error
@@ -47,5 +39,5 @@ func GetMongoSession() *Handler {
 		}
 	})
 
-	return &Handler{session.Copy().DB(dbName).C(collectionName)}
+	return session.Copy()
 }
