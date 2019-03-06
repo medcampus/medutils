@@ -2,12 +2,23 @@ package medutils
 
 import (
 	log "github.com/sirupsen/logrus"
+	"github.com/spf13/viper"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"net"
+	"strings"
 )
 
-func InitGrpc(port string, opts ...grpc.ServerOption) (*grpc.Server, net.Listener) {
+func InitGrpc(opts ...grpc.ServerOption) (*grpc.Server, net.Listener) {
+
+	InitConfig()
+
+	InitLog(viper.GetString("app.logPath"))
+
+	port := viper.GetString("app.port")
+	if !strings.Contains(viper.GetString("app.port"), ":") {
+		port = ":" + port
+	}
 
 	listener, err := net.Listen("tcp", port)
 	if err != nil {
