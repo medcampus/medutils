@@ -30,5 +30,5 @@ func InitGrpc(port string, serviceImpl interface{}, serviceInfo *grpc.ServiceDes
 		}
 	}()
 
-	Shutdown(srv, listener)
+	shutdown(srv, listener)
 }
