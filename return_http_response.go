@@ -29,6 +29,6 @@ func ReturnSuccessResponse(ctx *gin.Context, response SuccessResponse) {
 func ReturnErrorResponse(ctx *gin.Context, response ErrorResponse) {
 	response.Status = false
 	ctx.Error(errors.New(response.Message))
-	ctx.JSON(response.Code, response)
+	ctx.JSON(http.StatusOK, response)
 
 }
