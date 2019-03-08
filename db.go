@@ -41,3 +41,7 @@ func GetMongoSession() *mgo.Session {
 
 	return session.Copy()
 }
+
+func CloseRootSession() {
+	session.Close()
+}
