@@ -11,13 +11,13 @@ import (
 func PutMetadata(userId, organisationId string) context.Context {
 	header := metadata.New(map[string]string{"userId": userId, "organisationId":  organisationId})
 
-	c := metadata.NewOutgoingContext(context.Background(), header)
+	c := metadata.NewIncomingContext(context.Background(), header)
 
 	return c
 }
 
 func PullMetadata(ctx context.Context) (metadata.MD, error) {
-	if md, ok := metadata.FromOutgoingContext(ctx); !ok {
+	if md, ok := metadata.FromIncomingContext(ctx); !ok {
 		return nil, status.Errorf(codes.InvalidArgument, fmt.Sprintf("unable to fetch metadata from context %v", ctx))
 	} else {
 		return md, nil
