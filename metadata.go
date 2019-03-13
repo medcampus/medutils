@@ -11,7 +11,7 @@ import (
 func PutMetadata(userId, organisationId, userRole string) context.Context {
 	header := metadata.New(map[string]string{"userid": userId, "organisationid":  organisationId, "role": userRole})
 
-	c := metadata.NewIncomingContext(context.Background(), header)
+	c := metadata.NewOutgoingContext(context.Background(), header)
 
 	return c
 }
