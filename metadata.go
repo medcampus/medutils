@@ -17,7 +17,7 @@ func PutMetadata(userId, organisationId, userRole string) context.Context {
 }
 
 func PullMetadata(ctx context.Context) (metadata.MD, error) {
-	if md, ok := metadata.FromIncomingContext(ctx); !ok {
+	if md, ok := metadata.FromOutgoingContext(ctx); !ok {
 		return nil, status.Errorf(codes.InvalidArgument, fmt.Sprintf("unable to fetch metadata from context %v", ctx))
 	} else {
 		return md, nil
