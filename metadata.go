@@ -8,8 +8,8 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func PutMetadata(userId, organisationId string) context.Context {
-	header := metadata.New(map[string]string{"userid": userId, "organisationid":  organisationId})
+func PutMetadata(userId, organisationId, userRole string) context.Context {
+	header := metadata.New(map[string]string{"userid": userId, "organisationid":  organisationId, "role": userRole})
 
 	c := metadata.NewIncomingContext(context.Background(), header)
 
