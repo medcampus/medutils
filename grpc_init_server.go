@@ -26,7 +26,7 @@ func InitGrpc(opts ...grpc.ServerOption) (*grpc.Server, net.Listener) {
 		return nil, nil
 	}
 
-	opts = append(opts, grpc.UnaryInterceptor(unaryInterceptorChain(grpc_logging, grpc_recovery)))
+	opts = append(opts, grpc.UnaryInterceptor(unaryInterceptorChain(grpcLogging, grpcRecovery)))
 
 	srv := grpc.NewServer(opts...)
 

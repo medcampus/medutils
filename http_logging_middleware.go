@@ -9,7 +9,7 @@ import (
 
 // Requests with errors are logged using logrus.Error().
 // Requests without errors are logged using logrus.Info().
-func Http_Logging() gin.HandlerFunc {
+func HttpLogging() gin.HandlerFunc {
 	return func(c *gin.Context) {
 
 		start := time.Now()

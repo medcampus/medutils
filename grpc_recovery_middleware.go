@@ -15,7 +15,7 @@ const (
 )
 
 // Recovery interceptor to handle grpc panic.
-func grpc_recovery(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
+func grpcRecovery(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
 	// recovery func
 	defer func() {
 		if r := recover(); r != nil {

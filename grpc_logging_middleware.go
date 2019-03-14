@@ -3,6 +3,7 @@ package medutils
 import (
 	"bytes"
 	"fmt"
+	"github.com/spf13/viper"
 	"google.golang.org/grpc"
 	"reflect"
 	"time"
@@ -18,10 +19,15 @@ var (
 )
 
 // Logging interceptor.
-func grpc_logging(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
+func grpcLogging(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
 	start := time.Now()
-	log.Infof("calling %s, req=%s", info.FullMethod, marshal(req))
+	if !viper.GetBool("app.logRequest") {
+		log.Infof("calling %s, req=%s", info.FullMethod, marshal(req))
+	} else {
+		log.Infof("calling %s, req=%s", info.FullMethod)
+	}
 	resp, err = handler(ctx, req)
+
 	if err != nil {
 		log.Errorf("method = %v, Error = %v", info.FullMethod, err)
 	}
