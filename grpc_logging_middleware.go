@@ -24,7 +24,7 @@ func grpcLogging(ctx context.Context, req interface{}, info *grpc.UnaryServerInf
 	if !viper.GetBool("app.logRequest") {
 		log.Infof("calling %s, req=%s", info.FullMethod, marshal(req))
 	} else {
-		log.Infof("calling %s, req=%s", info.FullMethod)
+		log.Infof("calling %s", info.FullMethod)
 	}
 	resp, err = handler(ctx, req)
 
