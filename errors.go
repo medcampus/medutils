@@ -8,4 +8,7 @@ var (
 
 	// ErrGRPCParse indicates error while parsing gRPC error object
 	ErrGRPCParse = errors.New("not able to parse error returned")
+
+	// ErrEmptyAuthToken indicates empty auth cookie in request
+	ErrEmptyAuthToken = errors.New("empty auth token")
 )
