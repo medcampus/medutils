@@ -1,5 +1,7 @@
 package medutils
 
+import "strings"
+
 const (
 	minTime  = 30
 	minWords = 30
@@ -26,4 +28,12 @@ func inBetween(i, min, max int) bool {
 	} else {
 		return false
 	}
+}
+
+func DetermineWordCount(ss ...string) int {
+	var wordCount int
+	for _, s := range ss {
+		wordCount = wordCount + len(strings.Fields(s))
+	}
+	return wordCount
 }
