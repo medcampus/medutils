@@ -9,7 +9,7 @@ import (
 )
 
 func PutMetadata(userId, organisationId, userRole string) context.Context {
-	header := metadata.New(map[string]string{"userid": userId, "organisationid":  organisationId, "role": userRole})
+	header := metadata.New(map[string]string{"userid": userId, "organisationid": organisationId, "role": userRole})
 
 	c := metadata.NewOutgoingContext(context.Background(), header)
 

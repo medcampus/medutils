@@ -11,8 +11,8 @@ import (
 )
 
 var (
-	session                *mgo.Session
-	once                   sync.Once
+	session *mgo.Session
+	once    sync.Once
 )
 
 // create root DB Session

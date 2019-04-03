@@ -19,7 +19,7 @@ func DetermineQuestionTime(wordCount int, media bool) int64 {
 		i++
 	}
 
-	return int64(i * 15 + minTime)
+	return int64(i*15 + minTime)
 }
 
 func inBetween(i, min, max int) bool {

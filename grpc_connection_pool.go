@@ -9,7 +9,7 @@ import (
 var pool sync.Map
 
 type (
-	grpcServiceConfig struct {
+	GrpcServiceConfig struct {
 		Key    string
 		Target string //e.g: infomed:8081
 		Opts   []grpc.DialOption
@@ -28,27 +28,27 @@ type (
 )
 
 // Create a bundle of connection pool instance
-func Create(cg connGenerator, initialConn, maxConn int, grpcServiceConfigs ...grpcServiceConfig) error {
-	if cg == nil || initialConn <= 0 || maxConn <= 0 || initialConn > maxConn || len(grpcServiceConfigs) < 0 {
+func Create(cg connGenerator, initialConn, maxConn int, GrpcServiceConfigs ...GrpcServiceConfig) error {
+	if cg == nil || initialConn <= 0 || maxConn <= 0 || initialConn > maxConn || len(GrpcServiceConfigs) < 0 {
 		return errors.New("invalid arguments")
 	}
 
-	for _, grpcServiceConfig := range grpcServiceConfigs {
-		if _, ok := pool.Load(grpcServiceConfig.Key); !ok {
+	for _, GrpcServiceConfig := range GrpcServiceConfigs {
+		if _, ok := pool.Load(GrpcServiceConfig.Key); !ok {
 			cp := &grpcPool{
 				conns:  make(chan *grpc.ClientConn, maxConn),
 				cg:     cg,
-				target: grpcServiceConfig.Target,
-				opts:   grpcServiceConfig.Opts,
+				target: GrpcServiceConfig.Target,
+				opts:   GrpcServiceConfig.Opts,
 			}
 			for i := 0; i < initialConn; i++ {
-				c, err := cg(grpcServiceConfig.Target, grpcServiceConfig.Opts...)
+				c, err := cg(GrpcServiceConfig.Target, GrpcServiceConfig.Opts...)
 				if err != nil {
 					return err
 				}
 				cp.conns <- c
 			}
-			pool.Store(grpcServiceConfig.Key, cp)
+			pool.Store(GrpcServiceConfig.Key, cp)
 		}
 	}
 	return nil
