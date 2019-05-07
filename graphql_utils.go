@@ -28,3 +28,19 @@ func GinContextFromContext(ctx context.Context) (*gin.Context, error) {
 	}
 	return gc, nil
 }
+
+func ConvertToString(s *string) string {
+	if s != nil {
+		return *s
+	}
+
+	return ""
+}
+
+func ConvertToInt(i *int) int {
+	if i != nil {
+		return *i
+	}
+
+	return 0
+}
