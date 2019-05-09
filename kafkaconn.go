@@ -7,8 +7,6 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"github.com/confluentinc/confluent-kafka-go/kafka"
-
-	"gopkg.in/mgo.v2"
 	"sync"
 )
 
