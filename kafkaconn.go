@@ -12,13 +12,13 @@ import (
 
 var (
 	kafkaconn *kafka.Producer
-	once    sync.Once
+	onekafka    sync.Once
 )
 
 func createKafkaConnection() (kafkaconn *kafka.Producer, err error) {
 	
 	kafkaHostsUrl := viper.GetString("kafkaHost.host")
-	kafkaconn, err := kafka.NewProducer(&kafka.ConfigMap{"bootstrap.servers": kafkaHostsUrl})
+	kafkaconn, err = kafka.NewProducer(&kafka.ConfigMap{"bootstrap.servers": kafkaHostsUrl})
 
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, fmt.Sprintf("error creating kafka connection %s\n", err.Error()))
@@ -31,7 +31,7 @@ func createKafkaConnection() (kafkaconn *kafka.Producer, err error) {
 
 func GetKafkaSession() *kafka.Producer {
 
-	once.Do(func() {
+	onekafka.Do(func() {
 		var err error
 		kafkaconn, err = createKafkaConnection()
 		if err != nil {
@@ -39,9 +39,9 @@ func GetKafkaSession() *kafka.Producer {
 		}
 	})
 
-	return kafkaconn.Copy()
+	return kafkaconn
 }
 
-func CloseRootSession() {
+func CloseKafkaSession() {
 	kafkaconn.Close()
 }
