@@ -12,6 +12,9 @@ var (
 	// ErrEmptyAuthToken indicates empty auth cookie in request
 	ErrEmptyAuthToken = errors.New("empty auth token")
 
+	// ErrEmptyTokens indicates empty auth cookie in request
+	ErrEmptyToken = errors.New("error empty token")
+
 	// ErrEmptyGrpcHeaders indicates headers missing in grpc context
 	ErrEmptyGrpcHeaders = errors.New("empty headers")
 )
