@@ -44,3 +44,11 @@ func ConvertToInt(i *int) int {
 
 	return 0
 }
+
+func ConvertToFloat64(i *float64) float64 {
+	if i != nil {
+		return *i
+	}
+
+	return 0
+}
