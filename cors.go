@@ -10,7 +10,7 @@ func CorsMiddleware() gin.HandlerFunc {
 	medCors := cors.New(cors.Config{
 		AllowOrigins:     []string{"*"},
 		AllowMethods:     []string{"GET", "POST", "OPTIONS", "PATCH", "DELETE", "PUT"},
-		AllowHeaders:     []string{"Origin", "X-Requested-With", "Content-Type", "Accept", "Set-Cookie", "X-PINGOTHER"},
+		AllowHeaders:     []string{"Origin", "X-Requested-With", "Content-Type", "Accept", "Set-Cookie", "X-PINGOTHER", "x-auth-token", "x-refresh-token", "csrf-key"},
 		ExposeHeaders:    []string{"Set-Cookie"},
 		AllowCredentials: true,
 		MaxAge:           12 * time.Hour,
