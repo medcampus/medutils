@@ -1,11 +1,12 @@
 module github.com/medcampus/medutils
 
 require (
+	github.com/aws/aws-sdk-go v1.25.26
 	github.com/gin-contrib/cors v0.0.0-20190424000812-bd1331c62cae
 	github.com/gin-contrib/sse v0.0.0-20190301062529-5545eab6dad3 // indirect
 	github.com/gin-gonic/gin v1.3.0
 	github.com/golang/protobuf v1.3.0
-	github.com/gomodule/redigo v2.0.0+incompatible // indirect
+	github.com/gomodule/redigo v2.0.0+incompatible
 	github.com/google/uuid v1.1.1
 	github.com/mattn/go-isatty v0.0.6 // indirect
 	github.com/pkg/errors v0.8.1
