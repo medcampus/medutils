@@ -1,4 +1,4 @@
-package redis
+package redislib
 
 import (
 	"github.com/gomodule/redigo/redis"
@@ -32,7 +32,7 @@ func initPool() *redis.Pool {
 	}
 }
 
-func GetClient() *Client {
+func GetRedisClient() *Client {
 	once.Do(func() {
 		pool = initPool()
 	})

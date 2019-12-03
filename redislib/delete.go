@@ -1,4 +1,4 @@
-package redis
+package redislib
 
 import (
 	"google.golang.org/grpc/codes"
