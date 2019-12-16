@@ -5,10 +5,12 @@ import (
 	"encoding/base64"
 	"github.com/google/uuid"
 	"math/rand"
+	"time"
 )
 
 // Returns an int >= min, < max
 func randomInt(min, max int) int {
+	rand.Seed(time.Now().UTC().UnixNano())
 	return min + rand.Intn(max-min)
 }
 
