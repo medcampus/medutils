@@ -1,6 +1,7 @@
 package redislib
 
 import (
+	"github.com/gomodule/redigo/redis"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -15,7 +16,7 @@ func (c *Client) GetByte(key string) ([]byte, error) {
 		return nil, status.Errorf(codes.InvalidArgument, "Error key not found, key %v", key)
 	}
 
-	return reply.([]byte), nil
+	return redis.Bytes(reply, nil)
 }
 
 func (c *Client) GetString(key string) (string, error) {
@@ -28,10 +29,10 @@ func (c *Client) GetString(key string) (string, error) {
 		return "", status.Errorf(codes.InvalidArgument, "Error key not found, key %v", key)
 	}
 
-	return reply.(string), nil
+	return redis.String(reply, nil)
 }
 
-func (c *Client) GetInt32(key string) (int32, error) {
+func (c *Client) GetInt(key string) (int, error) {
 	reply, err := c.Conn.Do("GET", key)
 	if err != nil {
 		return 0, status.Errorf(codes.Internal, "ERROR: fail get key %s, error %s", key, err.Error())
@@ -41,7 +42,7 @@ func (c *Client) GetInt32(key string) (int32, error) {
 		return 0, status.Errorf(codes.InvalidArgument, "Error key not found, key %v", key)
 	}
 
-	return reply.(int32), nil
+	return redis.Int(reply, nil)
 }
 
 func (c *Client) GetInt64(key string) (int64, error) {
@@ -54,5 +55,5 @@ func (c *Client) GetInt64(key string) (int64, error) {
 		return 0, status.Errorf(codes.InvalidArgument, "Error key not found, key %v", key)
 	}
 
-	return reply.(int64), nil
+	return redis.Int64(reply, nil)
 }
