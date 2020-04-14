@@ -1,5 +1,7 @@
 module github.com/medcampus/medutils
 
+go 1.14
+
 require (
 	github.com/aws/aws-sdk-go v1.25.26
 	github.com/gin-contrib/cors v0.0.0-20190424000812-bd1331c62cae

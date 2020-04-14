@@ -2,6 +2,7 @@ package medutils
 
 import (
 	"errors"
+	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 	"sync"
 )
@@ -130,4 +131,10 @@ func (c *grpcPool) putBack(conn *grpc.ClientConn) (err error) {
 
 func (c *grpcPool) close() {
 	close(c.conns)
+}
+
+func DeferGrpcConnection(key string, conn *grpc.ClientConn) {
+	if err := PutBack(key, conn); err != nil {
+		logrus.Errorf("error PutBack key %s, clientCon %v, clientCon state %s, error %v", key, conn.Target(), conn.GetState().String(), err)
+	}
 }
