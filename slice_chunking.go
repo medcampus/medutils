@@ -15,17 +15,32 @@ func StringSliceChunking(sliceString []string, chunkSize int) [][]string {
 	return chunks
 }
 
-func IntSliceChunking(sliceString []int, chunkSize int) [][]int {
+func IntSliceChunking(sliceInt []int, chunkSize int) [][]int {
 	var chunks [][]int
 
-	for i := 0; i < len(sliceString); i += chunkSize {
+	for i := 0; i < len(sliceInt); i += chunkSize {
 		end := i + chunkSize
 
-		if end > len(sliceString) {
-			end = len(sliceString)
+		if end > len(sliceInt) {
+			end = len(sliceInt)
 		}
 
-		chunks = append(chunks, sliceString[i:end])
+		chunks = append(chunks, sliceInt[i:end])
+	}
+	return chunks
+}
+
+func SliceChunking(slice []interface{}, chunkSize int) [][]interface{} {
+	var chunks [][]interface{}
+
+	for i := 0; i < len(slice); i += chunkSize {
+		end := i + chunkSize
+
+		if end > len(slice) {
+			end = len(slice)
+		}
+
+		chunks = append(chunks, slice[i:end])
 	}
 	return chunks
 }
