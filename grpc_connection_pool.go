@@ -134,6 +134,7 @@ func (c *grpcPool) close() {
 }
 
 func DeferGrpcConnection(key string, conn *grpc.ClientConn) {
+	logrus.Infof("error PutBack key %s, clientCon %v, clientCon state %s", key, conn.Target(), conn.GetState().String())
 	if err := PutBack(key, conn); err != nil {
 		logrus.Errorf("error PutBack key %s, clientCon %v, clientCon state %s, error %v", key, conn.Target(), conn.GetState().String(), err)
 	}
